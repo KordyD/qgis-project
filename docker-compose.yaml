@@ -1,0 +1,29 @@
+services:
+  postgis:
+    image: postgis/postgis:18-master
+    container_name: gis-postgis-18-master
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: osm_coursework
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      TZ: Europe/Amsterdam
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgis_data:/var/lib/postgresql
+      - ./sql:/sql
+      - ./data:/data
+      - ./backups:/backups
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d osm_coursework"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgis_data:
