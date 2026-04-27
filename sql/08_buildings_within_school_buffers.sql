@@ -1,5 +1,5 @@
--- Находит здания, попадающие в радиус 500 м от школ.
--- Каждому зданию сопоставляется ближайшая школа в пределах этого радиуса.
+-- Находит жилые дома, попадающие в радиус 500 м от школ.
+-- Каждому дому сопоставляется ближайшая школа в пределах этого радиуса.
 
 CREATE SCHEMA IF NOT EXISTS coursework;
 
@@ -9,11 +9,19 @@ CREATE TABLE coursework.buildings_within_school_buffers AS
 WITH buildings AS (
     SELECT
         osm_id,
-        COALESCE(name, 'Unnamed building') AS building_name,
-        COALESCE(building, 'yes') AS building_type,
+        COALESCE(name, 'Unnamed residential building') AS building_name,
+        building AS building_type,
         way
     FROM coursework.rostov_polygon
-    WHERE building IS NOT NULL
+    WHERE building IN (
+        'apartments',
+        'detached',
+        'dormitory',
+        'house',
+        'residential',
+        'semidetached_house',
+        'terrace'
+    )
 ),
 matches AS (
     SELECT
