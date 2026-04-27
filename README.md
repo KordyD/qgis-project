@@ -27,7 +27,8 @@
 ## Структура
 
 - [sql](sql) — все SQL-скрипты
-- [images/demo.png](images/demo.png) — демонстрационный скриншот
+- [images](images) — демонстрационные скриншоты
+- [report](report) — отчет по проекту
 - [schools_project.qgz](schools_project.qgz) — QGIS-проект
 - [docker-compose.yaml](docker-compose.yaml) — локальный compose для окружения
 
